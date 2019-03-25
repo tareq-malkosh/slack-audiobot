@@ -92,10 +92,10 @@ slack.on('message', function(message) {
             }
 
 
-            var hasPlay = message.text.indexOf("play"); //search for play trigger
+            var hasPlay = message.text.indexOf("hey"); //search for play trigger
             if((hasPlay > -1) && (started === true)) {
                 //if message has the word play in then try and play a message
-                var toPlay = message.text.substring(hasPlay + 5);
+                var toPlay = message.text.substring(hasPlay + 4);
                 var toPlayWav = 'sounds/' + toPlay + '.wav'; //allow for mp3 and wav versions (consider creating an array of supported filetypes instead)
                 var toPlayMp3 = 'sounds/' + toPlay + '.mp3';
 
@@ -104,7 +104,7 @@ slack.on('message', function(message) {
                     if(existsMp3) {
                         exec(player + outputDevice + ' ' + toPlayMp3);
                         played = 'played';
-                        channel.send('Played sound: "' + toPlay + '"');
+                        channel.send('HEY! LISTEN!');
                         console.log('playing: ' + toPlayMp3);
                     }
                 });
@@ -143,7 +143,7 @@ slack.on('message', function(message) {
                 }
                 //spit out a list of help commands
                 if((trimmedMessage === 'help' || trimmedMessage === ': help') && (started === true)) {
-                    channel.send('Type _play_ and then a valid sound name to make me play that sound');
+                    channel.send('Type _hey_ and then a valid sound name to make me play that sound');
                     channel.send('For a list of valid sound names, type _@' + slack.self.name + ' list_');
                     channel.send('To stop me listening for play events,  type  _@' + slack.self.name + ' stop_');
                     channel.send('To start me listening for play events,  type  _@' + slack.self.name + ' start_ (I\'m _on_ by default)');
